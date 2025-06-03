@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatação de Nome</title>
+    <script>
+        function formatarNome() {
+            // Lista de junções que devem ser ignoradas
+            const juncoes = ['da', 'de', 'do', 'dos', 'das', 'e'];
+
+            // Obter o nome completo do input
+            const nomeCompleto = document.getElementById("nome").value.trim();
+
+            // Verificar se o nome foi inserido
+            if (nomeCompleto === "") {
+                alert("Por favor, insira um nome completo.");
+                return;
+            }
+
+            // Dividir o nome completo em partes
+            const partes = nomeCompleto.split(' ');
+
+            // Filtrar as junções
+            const partesFiltradas = partes.filter(parte => !juncoes.includes(parte.toLowerCase()));
+
+            // Verificar se o nome tem pelo menos um nome e um sobrenome
+            if (partesFiltradas.length < 2) {
+                alert("Por favor, insira um nome completo válido.");
+                return;
+            }
+
+            // Separar o sobrenome (última palavra) e o restante do nome
+            const sobrenome = partesFiltradas[partesFiltradas.length - 1];
+            const nome = partesFiltradas.slice(0, partesFiltradas.length - 1).join(' ');
+
+            // Exibir o resultado
+            document.getElementById("resultado").innerText = sobrenome + ", " + nome;
+        }
+    </script>
+</head>
+<body>
+    <h1>Formatação de Nome</h1>
+    <label for="nome">Digite o nome completo:</label>
+    <input type="text" id="nome" placeholder="Exemplo: Maria Eduarda Barbosa da Silva" />
+    <button onclick="formatarNome()">Formatar Nome</button>
+    
+    <h2>Resultado:</h2>
+    <p id="resultado"></p>
+</body>
+</html>
